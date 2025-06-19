@@ -1,6 +1,6 @@
 # Reddit Explorer 🚀
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcrestrepo27%2Freddit-landing)
+[![Deploy with Vercel](https://vercel.com/button)](https://reddit-landing.vercel.app/)
 
 Reddit Explorer es una landing page moderna que muestra contenido popular de Reddit con un diseño atractivo, animaciones fluidas y modo oscuro. Consume la API pública de Reddit para mostrar posts, implementa scroll infinito y ofrece una experiencia de usuario altamente interactiva.
 
