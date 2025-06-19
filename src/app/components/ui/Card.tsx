@@ -29,11 +29,11 @@ const Card = ({ post }: { post: RedditPost }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
       whileHover={{
-        y: -6, // Menos movimiento para mayor velocidad
-        scale: 1.02, // Pequeño zoom para énfasis
+        y: -6, 
+        scale: 1.02,
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         transition: { 
-          duration: 0.08, // Casi instantáneo
+          duration: 0.08,
           ease: "easeOut" 
         }
       }}
