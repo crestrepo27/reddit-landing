@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { RedditPost } from '@/types/reddit';
-import { ArrowUp, MessageCircle, Sparkles } from 'lucide-react';
+import { ArrowUp, MessageCircle, Flame } from 'lucide-react';
 
 const isValidUrl = (url?: string): boolean => {
   if (!url) return false;
@@ -14,7 +14,6 @@ const isValidUrl = (url?: string): boolean => {
 };
 
 const Card = ({ post }: { post: RedditPost }) => {
-  // Obtener URL de imagen válida
   let imageUrl: string | undefined;
 
   if (post.preview?.images?.[0]?.source?.url) {
@@ -26,19 +25,23 @@ const Card = ({ post }: { post: RedditPost }) => {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.2 }}
       whileHover={{
-        y: -8,
-        boxShadow:
-          '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        y: -6, // Menos movimiento para mayor velocidad
+        scale: 1.02, // Pequeño zoom para énfasis
+        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        transition: { 
+          duration: 0.08, // Casi instantáneo
+          ease: "easeOut" 
+        }
       }}
-      className="bg-card border border-border/30 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group relative"
+      className="bg-card border border-border/30 rounded-xl overflow-hidden group relative"
     >
       {post.score > 5000 && (
         <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-400 to-orange-500 text-xs font-bold text-white px-2 py-1 rounded-full flex items-center">
-          <Sparkles className="h-3 w-3 mr-1" />
+          <Flame className="h-3 w-3 mr-1" />
           <span>Hot</span>
         </div>
       )}
