@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Card from './Card';
 import { CardSkeleton } from './CardSkeleton';
 import { RedditPost } from '@/types/reddit';
+import ConfettiEffect from './ConfettiEffect';
 
 type InfiniteScrollProps = {
   posts: RedditPost[]; 
@@ -21,8 +22,43 @@ const containerVariants = {
 };
 
 const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
+  const [showConfetti, setShowConfetti] = useState(false);
+  const endMessageRef = useRef<HTMLDivElement>(null);
+  const confettiFiredRef = useRef(false); 
+
+  useEffect(() => {
+    if (!hasMore && !loading && endMessageRef.current && !confettiFiredRef.current) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setShowConfetti(true);
+            confettiFiredRef.current = true;
+            setTimeout(() => {
+              setShowConfetti(false);
+            }, 5000);
+          }
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        }
+      );
+
+      observer.observe(endMessageRef.current);
+
+      return () => {
+        if (endMessageRef.current) {
+          observer.unobserve(endMessageRef.current);
+        }
+      };
+    }
+  }, [hasMore, loading]);
+
   return (
     <div className="w-full">
+      <ConfettiEffect trigger={showConfetti} />
+      
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -48,6 +84,7 @@ const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
 
       {!hasMore && !loading && (
         <motion.div
+          ref={endMessageRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center py-12"
