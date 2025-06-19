@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reddit Explorer 🚀
 
-## Getting Started
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcrestrepo27%2Freddit-landing)
 
-First, run the development server:
+Reddit Explorer es una landing page moderna que muestra contenido popular de Reddit con un diseño atractivo, animaciones fluidas y modo oscuro. Consume la API pública de Reddit para mostrar posts, implementa scroll infinito y ofrece una experiencia de usuario altamente interactiva.
+
+![Reddit Explorer Screenshot](./public/screenshot.png)
+
+## Características ✨
+
+- **Diseño moderno y responsive**: Interfaz limpia y atractiva que funciona en móviles y escritorio.
+
+- **Modo oscuro/claro**: Cambia entre temas según tus preferencias.
+
+- **Scroll infinito**: Carga automática de posts al llegar al final de la página.
+
+- **Animaciones fluidas**: Con Framer Motion para transiciones suaves y efectos de hover.
+
+- **Indicadores visuales**:
+
+- Esqueletos de carga (skeleton) durante la carga de datos.
+
+- Confeti cuando se llega al final de los posts.
+
+- **Optimizado para rendimiento**: Uso de Next.js Image Component y lazy loading.
+
+- **Paginación inteligente**: Carga hasta 150 posts con límite de 50 por petición.
+
+## Tecnologías 🛠️
+
+- **Next.js 14**: Framework React para renderizado estático y dinámico.
+
+- **Tailwind CSS**: Utilizado con plugins para gradientes y animaciones.
+
+- **Framer Motion**: Biblioteca para animaciones avanzadas.
+
+- **TypeScript**: Tipado estático para mayor seguridad en el código.
+
+- **Axios**: Cliente HTTP para consumir la API de Reddit.
+
+- **Canvas Confetti**: Para efectos de confeti al completar la carga.
+
+- **React Icons (Lucide)**: Iconos modernos y elegantes.
+
+## Configuración ⚙️
+
+### Requisitos previos
+
+- Node.js v18+
+
+- npm v9+
+
+### Instalación
+
+1. Clonar el repositorio:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+git clone https://github.com/crestrepo27/reddit-landing.git
+
+cd reddit-landing
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instalar dependencias:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm install
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Ejecutar en modo desarrollo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+npm run dev
 
-## Deploy on Vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Abrir en el navegador:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+http://localhost:3000
+
+```
+
+### Despliegue
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcrestrepo27%2Freddit-landing)
+
+También puedes desplegar en Vercel vinculando tu repositorio GitHub.
+
+## Estructura de Carpetas 📁
+
+```
+
+src/
+
+├── app/
+
+│   ├── components/
+
+│   │   └── ui/       # Componentes UI reutilizables
+
+│   ├── hooks/        # Custom hooks
+
+│   ├── lib/          # Lógica de servicios y API
+
+│   ├── styles/       # Estilos globales
+
+│   ├── layout.tsx
+
+│   └── page.tsx
+
+└── types/            # Tipos TypeScript
+
+public/               # Assets estáticos

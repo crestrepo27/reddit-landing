@@ -24,8 +24,9 @@ const containerVariants = {
 const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const endMessageRef = useRef<HTMLDivElement>(null);
-  const confettiFiredRef = useRef(false); 
+  const confettiFiredRef = useRef(false);
 
+  // Observar si el mensaje final es visible
   useEffect(() => {
     if (!hasMore && !loading && endMessageRef.current && !confettiFiredRef.current) {
       const observer = new IntersectionObserver(
@@ -33,6 +34,7 @@ const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
           if (entry.isIntersecting) {
             setShowConfetti(true);
             confettiFiredRef.current = true;
+            
             setTimeout(() => {
               setShowConfetti(false);
             }, 5000);
@@ -45,11 +47,12 @@ const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
         }
       );
 
-      observer.observe(endMessageRef.current);
+      const currentRef = endMessageRef.current; // Capturar referencia actual
+      observer.observe(currentRef);
 
       return () => {
-        if (endMessageRef.current) {
-          observer.unobserve(endMessageRef.current);
+        if (currentRef) {
+          observer.unobserve(currentRef);
         }
       };
     }

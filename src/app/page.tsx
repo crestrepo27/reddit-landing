@@ -66,9 +66,9 @@ export default function Home() {
               transition={{ delay: 0.1 }}
               className="text-lg text-muted-foreground mb-8"
             >
-              Explore trending content from across Reddit in a beautifully designed interface
+              Jump into the pulse of Reddit and discover what’s trending now.
             </motion.p>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
