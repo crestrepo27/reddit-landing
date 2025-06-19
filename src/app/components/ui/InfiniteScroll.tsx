@@ -2,9 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Card from './Card';
 import { CardSkeleton } from './CardSkeleton';
+import { RedditPost } from '@/types/reddit';
 
 type InfiniteScrollProps = {
-  posts: any[];
+  posts: RedditPost[]; 
   loading: boolean;
   hasMore: boolean;
 };
@@ -52,7 +53,7 @@ const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
           className="text-center py-12"
         >
           <div className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full">
-            <p>You've reached the end! 🎉</p>
+            <p>You&apos;ve reached the end! 🎉</p>
             <p className="text-sm mt-2 text-indigo-100">Loaded {posts.length} posts</p>
           </div>
         </motion.div>

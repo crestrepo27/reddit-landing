@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { fetchPosts } from '@/lib/redditApi';
 import { RedditPost } from '@/types/reddit';
 
@@ -8,6 +8,8 @@ export const useInfiniteScroll = () => {
   const [after, setAfter] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
+  const loadMoreRef = useRef<() => Promise<void> | null>(null);
+
   const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
     
@@ -15,23 +17,38 @@ export const useInfiniteScroll = () => {
     try {
       const { posts: newPosts, after: newAfter } = await fetchPosts(50, after ?? undefined);
       
-      setPosts(prev => [...prev, ...newPosts]);
-      setAfter(newAfter);
+      setPosts(prev => {
+        const updatedPosts = [...prev, ...newPosts];
+        
+        if (updatedPosts.length >= 150 || !newAfter) {
+          setHasMore(false);
+        }
+        
+        return updatedPosts;
+      });
       
-      // Limitar a 150 posts como máximo
-      if (posts.length + newPosts.length >= 150 || !newAfter) {
-        setHasMore(false);
-      }
+      setAfter(newAfter);
     } catch (error) {
       console.error('Error loading posts:', error);
     } finally {
       setLoading(false);
     }
-  }, [after, hasMore, loading, posts.length]);
+  }, [after, hasMore, loading]);
 
   useEffect(() => {
-    loadMore();
+    loadMoreRef.current = loadMore;
+  }, [loadMore]);
+
+
+  const loadInitial = useCallback(async () => {
+    if (loadMoreRef.current) {
+      await loadMoreRef.current();
+    }
   }, []);
+
+  useEffect(() => {
+    loadInitial();
+  }, [loadInitial]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,13 +56,15 @@ export const useInfiniteScroll = () => {
         window.innerHeight + document.documentElement.scrollTop + 200 >= 
         document.documentElement.offsetHeight
       ) {
-        loadMore();
+        if (loadMoreRef.current) {
+          loadMoreRef.current();
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [loadMore]);
+  }, []);
 
   return { posts, loading, hasMore };
 };
