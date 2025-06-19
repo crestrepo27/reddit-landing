@@ -48,3 +48,27 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+.gradient-bg {
+  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+.dark .gradient-bg {
+  background: linear-gradient(120deg, #4a00e0 0%, #8e2de2 100%);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}

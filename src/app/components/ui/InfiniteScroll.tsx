@@ -34,21 +34,27 @@ const InfiniteScroll = ({ posts, loading, hasMore }: InfiniteScrollProps) => {
       </motion.div>
 
       {loading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6"
+        >
           {Array.from({ length: 8 }).map((_, i) => (
             <CardSkeleton key={i} />
           ))}
-        </div>
+        </motion.div>
       )}
 
       {!hasMore && !loading && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-12 text-muted-foreground"
+          className="text-center py-12"
         >
-          <p>You've reached the end! 🎉</p>
-          <p className="text-sm mt-2">Loaded {posts.length} posts</p>
+          <div className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full">
+            <p>You've reached the end! 🎉</p>
+            <p className="text-sm mt-2 text-indigo-100">Loaded {posts.length} posts</p>
+          </div>
         </motion.div>
       )}
     </div>
